@@ -20,6 +20,8 @@
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
   "python.formatting.provider": "black",
+  "python.editor.defaultFormatter": "ms-python.black-formatter",
+  "python.formatOnSave": true,
   "python.linting.pylintArgs": [
     "--disable=C0111" // Отключает предупреждение о отсутствии docstring
   ],
@@ -59,4 +61,5 @@
   // ********* Расширения *********
   "extensions.ignoreRecommendations": false,
   "extensions.autoUpdate": true,
+  "git.autofetch": true,
 }
