@@ -6,6 +6,9 @@
 4. Скопировать настройки zshrc vimrc
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 /bin/bash brew.sh
+
 /bin/bash pipx.sh
+
 pip3 install -r requerements.txt --break-system-packages
