@@ -46,4 +46,4 @@ brew install --cask vlc
 brew install --cask transmission
 brew install --cask utm
 brew install --cask fork
-
+brew install --cask ledger-live
