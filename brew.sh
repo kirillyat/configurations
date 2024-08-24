@@ -17,6 +17,7 @@ brew install llvm
 brew install gcc
 brew install cmake
 brew install go
+brew install rust
 brew install node
 brew install redis
 brew install kafka
@@ -27,6 +28,7 @@ brew install sqlite
 brew install fzf
 brew install thefuck
 brew install jq
+brew install vim
 brew install tmux
 brew install zsh
 brew install zsh-completions
