@@ -14,6 +14,7 @@ brew install openjdk
 brew install pipx
 brew install llvm
 brew install gcc
+brew install cmake
 brew install go
 brew install node
 brew install redis
