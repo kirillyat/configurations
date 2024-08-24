@@ -1,4 +1,5 @@
 brew install wget
+brew install curl
 brew install htop
 brew install tldr
 brew install bat
