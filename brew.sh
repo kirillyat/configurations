@@ -5,6 +5,8 @@ brew install bat
 brew install watch
 brew install tree
 brew install docker
+brew install docker-compose
+brew install kubernetes-cli
 brew install git
 brew install gh
 brew install python
@@ -18,6 +20,7 @@ brew install redis
 brew install kafka
 brew install pgcli
 brew install postgresql
+brew install clickhouse
 brew install sqlite
 brew install fzf
 brew install thefuck
@@ -47,3 +50,4 @@ brew install --cask transmission
 brew install --cask utm
 brew install --cask fork
 brew install --cask ledger-live
+brew install --cask logi-options+
