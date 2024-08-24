@@ -42,6 +42,7 @@ brew install --cask telegram
 brew install --cask yandex
 brew install --cask yandex-music
 brew install --cask iterm2
+brew install --cask warp
 brew install --cask visual-studio-code
 brew install --cask zoom
 brew install --cask notion
