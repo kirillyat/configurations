@@ -2,6 +2,7 @@ brew install wget
 brew install curl
 brew install htop
 brew install tldr
+brew install neofetch
 brew install bat
 brew install watch
 brew install tree
