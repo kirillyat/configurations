@@ -58,3 +58,4 @@ brew install --cask utm
 brew install --cask fork
 brew install --cask ledger-live
 brew install --cask logi-options+
+brew install --cask obsidian
