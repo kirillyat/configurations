@@ -36,7 +36,8 @@ brew install zsh-completions
 brew install zsh-autocomplete
 brew install zsh-autosuggestions
 brew install zsh-syntax-highlighting
-brew install youtube-dl
+brew install yt-dlp
+brew install ffmpeg
 
 brew install --cask telegram
 brew install --cask yandex
