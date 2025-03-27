@@ -24,6 +24,7 @@ brew install redis
 brew install kafka
 brew install pgcli
 brew install postgresql
+brew install protobuf
 brew install clickhouse
 brew install sqlite
 brew install fzf
@@ -58,5 +59,5 @@ brew install --cask transmission
 brew install --cask utm
 brew install --cask fork
 brew install --cask ledger-live
-brew install --cask logi-options+
 brew install --cask obsidian
+brew install --cask grandperspective
