@@ -14,6 +14,8 @@ brew "fzf"
 brew "thefuck"
 brew "jq"
 brew "yt-dlp" # youtube-dl заброшен и отключён в Homebrew
+brew "ffmpeg"
+brew "protobuf"
 
 # --- Терминал и редакторы ---
 brew "vim"
@@ -70,6 +72,6 @@ cask "transmission"
 cask "utm"
 cask "fork"
 cask "ledger-wallet" # бывший ledger-live
-cask "logi-options+"
 cask "obsidian"
+cask "grandperspective"
 # cask "cheatsheet" — отключён в Homebrew (проект заброшен)
