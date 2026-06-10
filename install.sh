@@ -41,7 +41,6 @@ link_file .zshrc "$HOME/.zshrc"
 link_file .vimrc "$HOME/.vimrc"
 link_file .gitconfig "$HOME/.gitconfig"
 link_file .gitignore_global "$HOME/.gitignore_global"
-link_file claude/settings.json "$HOME/.claude/settings.json"
 
 # --- 5. VS Code: расширения и настройки ---
 if command -v code &>/dev/null; then

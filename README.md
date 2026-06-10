@@ -14,7 +14,7 @@ git clone https://github.com/kirillyat/configurations.git && cd configurations
 1. Устанавливает [Homebrew](https://brew.sh), если его нет
 2. Ставит все пакеты и приложения из `Brewfile` (`brew bundle`)
 3. Устанавливает [Oh My Zsh](https://ohmyz.sh) (нужен для `.zshrc`)
-4. Подключает симлинками дотфайлы — `.zshrc`, `.vimrc`, `.gitconfig`, `.gitignore_global`, настройки Claude Code; старые версии сохраняются как `*.backup`
+4. Подключает симлинками дотфайлы — `.zshrc`, `.vimrc`, `.gitconfig`, `.gitignore_global`; старые версии сохраняются как `*.backup`
 5. Устанавливает расширения VS Code из `vscode-extensions.txt` и копирует `vscode-settings.json`
 
 ## Python
@@ -60,4 +60,3 @@ cp "$HOME/Library/Application Support/Code/User/settings.json" vscode-settings.j
 | `vscode-settings.json` | настройки VS Code |
 | `.zshrc`, `.vimrc` | конфиги шелла и vim |
 | `.gitconfig`, `.gitignore_global` | глобальные настройки git |
-| `claude/settings.json` | настройки Claude Code |
