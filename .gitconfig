@@ -1,0 +1,37 @@
+[user]
+	name = Кирилл Яценко
+	email = kirillyat@gmail.com
+
+[init]
+	defaultBranch = main
+
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore_global
+
+[pull]
+	# git pull делает rebase вместо merge-коммитов
+	rebase = true
+
+[rebase]
+	# автоматически прячет незакоммиченные изменения перед rebase
+	autostash = true
+
+[push]
+	# git push новой ветки сам создаёт upstream, без --set-upstream
+	autoSetupRemote = true
+
+[fetch]
+	# удаляет локальные ссылки на удалённые на сервере ветки
+	prune = true
+
+[branch]
+	# git branch сортирует по дате последнего коммита, а не по алфавиту
+	sort = -committerdate
+
+[diff]
+	algorithm = histogram
+
+[merge]
+	# в конфликтах показывает ещё и общий исходный вариант
+	conflictstyle = zdiff3

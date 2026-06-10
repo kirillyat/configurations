@@ -1,0 +1,19 @@
+name: Check Brewfile
+
+on:
+  schedule:
+    - cron: "0 8 * * 1" # каждый понедельник в 8:00 UTC
+  push:
+    paths:
+      - Brewfile
+      - check-brewfile.sh
+      - .github/workflows/check-brewfile.yml
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Проверить пакеты из Brewfile
+        run: ./check-brewfile.sh
