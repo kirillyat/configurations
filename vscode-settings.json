@@ -12,7 +12,6 @@
     "**/.venv": true,
     "**/__pycache__": true
   },
-  "files.associations": { "*.yaml": "yaml" },
   // Enable discovery: prefer the project's environment, otherwise use global Python.
   "python.defaultInterpreterPath": "python",
   "python.terminal.activateEnvironment": true,
