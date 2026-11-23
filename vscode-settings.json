@@ -1,5 +1,18 @@
 {
-  // Merged into User settings; personal themes, accounts and workspace choices stay.
+  // Editor and source review alongside Codex.
+  "chat.disableAIFeatures": true,
+  "workbench.startupEditor": "none",
+  "workbench.editor.highlightModifiedTabs": true,
+  "editor.minimap.enabled": false,
+  "editor.largeFileOptimizations": true,
+  "diffEditor.hideUnchangedRegions.enabled": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "git.autofetch": true,
+  "search.exclude": {
+    "**/.venv": true,
+    "**/__pycache__": true
+  },
+  "files.associations": { "*.yaml": "yaml" },
   // Enable discovery: prefer the project's environment, otherwise use global Python.
   "python.defaultInterpreterPath": "python",
   "python.terminal.activateEnvironment": true,
@@ -17,6 +30,7 @@
   "isort.args": ["--profile", "black"],
   // clangd provides C++ completion; cpptools remains available for debugging.
   "C_Cpp.intelliSenseEngine": "disabled",
+  "go.testOnSave": false,
   "terminal.integrated.defaultProfile.osx": "zsh",
   "terminal.integrated.profiles.osx": {
     "zsh": { "path": "/bin/zsh", "args": ["-l"] }

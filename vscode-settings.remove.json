@@ -5,5 +5,20 @@
   "python.linting.pylintArgs",
   "python.formatting.provider",
   "python.editor.defaultFormatter",
-  "python.formatOnSave"
+  "python.formatOnSave",
+  "go.lintTool",
+  "javascript.validate.enable",
+  "javascript.format.enable",
+  "cmake.showOptionsMovedNotification",
+  "codeium.enableConfig",
+  "roo-cline.allowedCommands",
+  "roo-cline.vsCodeLmModelSelector",
+  "yandex-code-assist.agents.preferredLanguage",
+  "yandex-code-assist.enableAutoupdate",
+  "yandex-code-assist.delayedRequest",
+  "yandex-code-assist.agents.agentsTestPreview",
+  "yandex-code-assist.agents.vsCodeLmModelSelector",
+  "yandex-code-assist.agents.allowedCommands",
+  "yandex-code-assist.allowedCommands",
+  "yandex-code-assist.deniedCommands"
 ]
