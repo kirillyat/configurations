@@ -1,6 +1,7 @@
 {
   // Merged into User settings; personal themes, accounts and workspace choices stay.
-  "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
+  // Enable discovery: prefer the project's environment, otherwise use global Python.
+  "python.defaultInterpreterPath": "python",
   "python.terminal.activateEnvironment": true,
   "python.terminal.activateEnvInCurrentTerminal": false,
   "[python]": {
@@ -14,6 +15,8 @@
   "black-formatter.importStrategy": "useBundled",
   "isort.importStrategy": "useBundled",
   "isort.args": ["--profile", "black"],
+  // clangd provides C++ completion; cpptools remains available for debugging.
+  "C_Cpp.intelliSenseEngine": "disabled",
   "terminal.integrated.defaultProfile.osx": "zsh",
   "terminal.integrated.profiles.osx": {
     "zsh": { "path": "/bin/zsh", "args": ["-l"] }

@@ -22,7 +22,7 @@ cd configurations
 
 ## Терминал
 
-`.zprofile` подключает Homebrew для login shell. `.zshrc` также работает в обычном interactive shell. В PATH есть `bin`, `sbin`, `~/.local/bin` и Python 3.14; активированная `.venv` имеет приоритет. Повторяющиеся пути удаляются.
+`.zprofile` подключает Homebrew для login shell. `.zshrc` также работает в обычном interactive shell. В PATH есть `bin`, `sbin`, `~/.local/bin` и Python 3.15; активированная `.venv` имеет приоритет. Повторяющиеся пути удаляются.
 
 Дополнения Homebrew и `zsh-completions` добавляются до единственного `compinit` внутри Oh My Zsh. Затем подключаются autosuggestions, личные настройки и последним syntax-highlighting. `zsh-autocomplete` не используется: у него другая схема инициализации. История сохраняет 50 000 команд. `thefuck` загружается при первом вызове `fuck`, GitHub CLI не вызывается на старте. `termup` вручную обновляет Oh My Zsh и пакеты Homebrew.
 
@@ -32,7 +32,7 @@ cd configurations
 
 ## Python
 
-Рабочий Python — Homebrew `python@3.14`. Другие minor-версии могут требоваться установленным CLI или существующим проектам: их удаляют только после проверки ссылок `.venv/pyvenv.cfg` и зависимостей Homebrew. Системный Python macOS не меняется.
+Рабочий Python — Homebrew `python@3.15`. Окружения TwelveAfrica и системный Python сохраняются. Другие minor-версии могут требоваться установленным CLI или существующим проектам: их удаляют только после проверки ссылок `.venv/pyvenv.cfg` и зависимостей Homebrew. Системный Python macOS не меняется.
 
 Конфиг `~/.config/uv/uv.toml` предпочитает интерпретаторы из PATH и запрещает незапрошенные загрузки новых версий. Для проекта, которому явно нужна другая версия, можно выполнить `uv python install 3.13`. Настройки и lock-файлы самого проекта сохраняют приоритет.
 
@@ -40,7 +40,7 @@ cd configurations
 
 ```sh
 mkdir example && cd example
-uv init --python 3.14
+uv init --python 3.15
 uv add requests
 uv run python main.py
 ```
@@ -48,13 +48,13 @@ uv run python main.py
 Существующий проект с `pyproject.toml` и `uv.lock`: `uv sync`, затем `uv run ...`. Для проекта с `requirements.txt`:
 
 ```sh
-uv venv --python 3.14
+uv venv --python 3.15
 uv pip install -r requirements.txt
 source .venv/bin/activate
 python main.py
 ```
 
-`uv pip` не требует установленного в `.venv` pip. Если программе нужен именно `python -m pip`, создай окружение с `uv venv --seed --python 3.14`.
+`uv pip` не требует установленного в `.venv` pip. Если программе нужен именно `python -m pip`, создай окружение с `uv venv --seed --python 3.15`.
 
 Отдельные CLI устанавливаются через `uv tool install <tool>`, разовый запуск — `uvx <tool>`. Библиотеки вроде numpy, pandas и torch ставятся в проекты, а не через pipx. Для разового скрипта: `uv run --with pandas script.py`.
 
@@ -65,7 +65,7 @@ python main.py
 Редактор можно держать в отдельной среде, а ядро — в среде проекта:
 
 ```sh
-uv tool install --python 3.14 jupyterlab
+uv tool install --python 3.15 jupyterlab
 # Внутри проекта:
 uv add --dev ipykernel
 uv run python -m ipykernel install --user --name example --display-name 'Python (example)'
@@ -78,13 +78,13 @@ jupyter-lab
 
 `./install.sh --dotfiles-only --with-vscode` устанавливает только недостающие расширения из выбранного базового списка и объединяет настройки с существующим User settings. Темы, AI-интеграции, другие языки, комментарии и дополнительные поля сохраняются. Семь устаревших Python-настроек удаляются. Исходный файл сохраняется в резервной папке. Для JSONC используется одна локальная зависимость `jsonc-parser`, закреплённая в `tools/vscode/package-lock.json`; глобальные npm-пакеты не нужны.
 
-Python по умолчанию ищется в `.venv` проекта. Для проектов с уже сохранённым выбором интерпретатора один раз выполни **Python: Select Interpreter** и выбери свою `.venv`. В новом встроенном терминале активируется это окружение; используется login zsh с домашними конфигами. Code Runner также запускает выбранный интерпретатор.
+Глобальный `python.defaultInterpreterPath` равен `python`: это включает автоматический выбор среды проекта и не подставляет каталог расширения в окне без открытой папки. В проектах расширение предпочитает локальную `.venv`, вне проектов используется рабочий Python 3.15. Для проектов с уже сохранённым выбором интерпретатора один раз выполни **Python: Select Interpreter** и выбери свою `.venv`. В новом встроенном терминале активируется это окружение; используется login zsh с домашними конфигами. Code Runner также запускает выбранный интерпретатор.
 
 Black форматирует Python при сохранении, isort упорядочивает импорты при явном сохранении с профилем Black. Оба используют комплектные версии расширений, без установки в глобальный Python. Настройки `pyproject.toml` конкретного проекта сохраняют приоритет.
 
 В ноутбуке выбирай `.venv` проекта через **Select Kernel**. Если ядро ещё не установлено, добавь `ipykernel` в проект: `uv add --dev ipykernel`. Существующие ядра и сохранённые выборы не переписываются.
 
-`vscode-extensions.txt` содержит базовый набор, а не полный дамп установленного. Другие установленные расширения скрипт не удаляет. Настройки C++/clangd и прочие личные предпочтения не заменяются настройками из этого репозитория.
+`vscode-extensions.txt` содержит базовый набор, а не полный дамп установленного. Другие установленные расширения скрипт не удаляет. В C++ автодополнение обеспечивает clangd, а cpptools остаётся для отладки; второй IntelliSense отключён. Остальные личные предпочтения сохраняются.
 
 ## Проверки и обслуживание
 

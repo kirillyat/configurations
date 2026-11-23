@@ -29,7 +29,7 @@ brew "zsh-syntax-highlighting"
 # --- Разработка ---
 brew "git"
 brew "gh"
-brew "python@3.14" # development default; other versions may be tool dependencies
+brew "python@3.15" # development default; other versions may be tool dependencies
 brew "uv" # окружения на проект: uv venv; разовые скрипты: uv run --with pandas script.py
 # Python CLI tools: uv tool install <tool>; libraries stay inside project .venv.
 brew "openjdk"

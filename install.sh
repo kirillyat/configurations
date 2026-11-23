@@ -105,6 +105,11 @@ if "$with_vscode"; then
       [[ -z "$ext" || "$ext" = \#* ]] && continue
       if ! grep -Fqix -- "$ext" <<<"$installed"; then code --install-extension "$ext"; fi
     done < vscode-extensions.txt
+
+    # Settings Sync or the editor may have changed User settings while extensions
+    # were being installed. Merge the latest file instead of the preflight copy.
+    node "$repo_dir/tools/vscode/apply-settings.cjs" "$dst" \
+      "$repo_dir/vscode-settings.json" "$repo_dir/vscode-settings.remove.json" > "$vscode_candidate"
     step 'Merge VS Code settings'
     if ! cmp -s "$vscode_candidate" "$dst"; then
       mkdir -p "$(dirname "$dst")"

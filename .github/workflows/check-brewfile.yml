@@ -12,6 +12,7 @@ on:
       - .gitignore_global
       - "config/**"
       - "scripts/**"
+      - "tools/**"
       - "tests/**"
       - "vscode-*"
       - .github/workflows/check-brewfile.yml
@@ -26,6 +27,7 @@ on:
       - .gitignore_global
       - "config/**"
       - "scripts/**"
+      - "tools/**"
       - "tests/**"
       - "vscode-*"
       - .github/workflows/check-brewfile.yml

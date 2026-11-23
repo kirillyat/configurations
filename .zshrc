@@ -11,8 +11,8 @@ typeset -U path PATH fpath
 path=("$HOME/.local/bin" $path)
 if [[ -n ${HOMEBREW_PREFIX:-} ]]; then
   path=("$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" $path)
-  if [[ -d "$HOMEBREW_PREFIX/opt/python@3.14/libexec/bin" ]]; then
-    path=("$HOMEBREW_PREFIX/opt/python@3.14/libexec/bin" $path)
+  if [[ -d "$HOMEBREW_PREFIX/opt/python@3.15/libexec/bin" ]]; then
+    path=("$HOMEBREW_PREFIX/opt/python@3.15/libexec/bin" $path)
   fi
   # Completion directories must be present before Oh My Zsh calls compinit.
   for completion_dir in "$HOMEBREW_PREFIX/share/zsh/site-functions" \
