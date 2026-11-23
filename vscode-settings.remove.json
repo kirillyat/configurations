@@ -5,5 +5,15 @@
   "python.linting.pylintArgs",
   "python.formatting.provider",
   "python.editor.defaultFormatter",
-  "python.formatOnSave"
+  "python.formatOnSave",
+  "cmake.showOptionsMovedNotification",
+  "codeium.enableConfig",
+  "yandex-code-assist.agents.preferredLanguage",
+  "yandex-code-assist.enableAutoupdate",
+  "yandex-code-assist.delayedRequest",
+  "yandex-code-assist.agents.agentsTestPreview",
+  "yandex-code-assist.agents.vsCodeLmModelSelector",
+  "yandex-code-assist.agents.allowedCommands",
+  "yandex-code-assist.allowedCommands",
+  "yandex-code-assist.deniedCommands"
 ]
