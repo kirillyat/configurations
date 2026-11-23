@@ -1,0 +1,5 @@
+# Prefer the Homebrew interpreter selected by PATH. Project version requirements
+# remain authoritative; already installed managed Pythons are still available.
+python-preference = "system"
+# Additional interpreters are explicit: uv python install 3.13
+python-downloads = "manual"

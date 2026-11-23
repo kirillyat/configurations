@@ -1,43 +1,32 @@
-" Основные настройки
-syntax on               " Включает подсветку синтаксиса
-set number              " Включает отображение номеров строк
-set relativenumber      " Отображает относительные номера строк
-set cursorline          " Подсвечивает текущую строку
-set showcmd             " Показывает команду внизу в процессе её ввода
+" Editing and navigation.
+set nocompatible
+syntax on
+filetype plugin indent on
+set number relativenumber cursorline showcmd
+set ignorecase smartcase incsearch hlsearch
+set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+set splitright splitbelow
+set wildmenu scrolloff=8
 
-" Настройки поиска
-set ignorecase          " Игнорирует регистр при поиске
-set smartcase           " Учитывает регистр, если запрос содержит заглавные буквы
-set incsearch           " Позволяет видеть совпадения по мере ввода поискового запроса
-set hlsearch            " Подсвечивает результаты поиска
+set background=dark
+colorscheme desert
+if has('clipboard')
+  set clipboard=unnamedplus
+endif
 
-" Управление табуляцией и пробелами
-set tabstop=4           " Устанавливает количество пробелов, которое представляет собой табуляция
-set shiftwidth=4        " Количество пробелов для отступов
-set expandtab           " Преобразует табуляции в пробелы
+" Keep backups, swap and undo files out of project directories.
+let s:state = (empty($XDG_STATE_HOME) ? expand('~/.local/state') : $XDG_STATE_HOME) . '/vim'
+for s:dir in ['backup', 'swap', 'undo']
+  call mkdir(s:state . '/' . s:dir, 'p', 0700)
+endfor
+let &backupdir = s:state . '/backup//'
+let &directory = s:state . '/swap//'
+set backup
+if has('persistent_undo')
+  let &undodir = s:state . '/undo//'
+  set undofile
+endif
+unlet s:dir s:state
 
-" Визуальные настройки
-set background=dark     " Настроить тему отображения для тёмного фона
-colorscheme desert      " Устанавливает цветовую схему (можете выбрать свою)
-
-" Настройки панели
-set splitright          " Вертикальные разделы открываются справа
-set splitbelow          " Горизонтальные разделы открываются снизу
-
-" Буфер обмена
-set clipboard=unnamedplus " Использовать системный буфер обмена
-
-" Разное
-set wildmenu            " Удобное меню для авто-дополнения команд
-set scrolloff=8         " Оставляет 8 строк когда вы скроллите выше или ниже
-set backup              " Включить резервное копирование файла перед записью
-set undofile            " Включить историю отмены для каждого файла
-
-" Плагины (если используете vim-plug или другой менеджер плагинов)
-" call plug#begin('~/.vim/plugged')
-" Plug 'preservim/nerdtree'
-" Plug 'itchyny/lightline.vim'
-" call plug#end()
-
-" Дополнительные полезные команды
-nnoremap <C-n> :NERDTreeToggle<CR> " Привязка для быстрого открытия NERDTree (если установлен)
+" Built-in file explorer; no plugin installation required.
+nnoremap <silent> <C-n> :Lexplore<CR>

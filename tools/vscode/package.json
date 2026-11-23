@@ -1,0 +1,15 @@
+{
+  "name": "configurations-vscode-settings",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Merge selected VS Code settings without rewriting personal JSONC",
+  "scripts": {
+    "test": "node --test apply-settings.test.cjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "jsonc-parser": "3.3.1"
+  }
+}

@@ -1,5 +1,12 @@
 # Mac OS X
 .DS_Store
+.zshrc.local
+.zprofile.local
+*.backup
+backups/
+.venv/
+__pycache__/
+node_modules/
 .AppleDouble
 .LSOverride
 

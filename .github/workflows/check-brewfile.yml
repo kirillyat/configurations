@@ -1,19 +1,87 @@
-name: Check Brewfile
+name: Check configurations
 
 on:
-  schedule:
-    - cron: "0 8 * * 1" # каждый понедельник в 8:00 UTC
+  pull_request:
+    paths:
+      - Brewfile
+      - "*.sh"
+      - ".zsh*"
+      - .zprofile
+      - .vimrc
+      - .gitconfig
+      - .gitignore_global
+      - "config/**"
+      - "scripts/**"
+      - "tools/**"
+      - "tests/**"
+      - "vscode-*"
+      - .github/workflows/check-brewfile.yml
   push:
     paths:
       - Brewfile
-      - check-brewfile.sh
+      - "*.sh"
+      - ".zsh*"
+      - .zprofile
+      - .vimrc
+      - .gitconfig
+      - .gitignore_global
+      - "config/**"
+      - "scripts/**"
+      - "tools/**"
+      - "tests/**"
+      - "vscode-*"
       - .github/workflows/check-brewfile.yml
+  schedule:
+    - cron: "0 8 * * 1" # Monday, 08:00 UTC
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+env:
+  HOMEBREW_NO_AUTO_UPDATE: "1"
+
 jobs:
-  check:
+  syntax-and-smoke:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Проверить пакеты из Brewfile
+      - name: Check shell syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r -d '' script; do
+            bash -n "$script"
+          done < <(git ls-files -z '*.sh')
+          while IFS= read -r -d '' script; do
+            zsh -n "$script"
+          done < <(git ls-files -z '.zsh*' '.zprofile' 'config/zsh/*' '*.zsh')
+      - name: Installer smoke test
+        run: bash tests/install-smoke.sh
+      - name: Brewfile checker regression test
+        run: bash tests/check-brewfile-smoke.sh
+      - name: Install settings merge helper
+        run: npm ci --prefix tools/vscode --ignore-scripts --no-audit --no-fund
+      - name: VS Code settings merge tests
+        run: node --test tools/vscode/apply-settings.test.cjs
+      - name: VS Code installer smoke test
+        run: bash tests/vscode-install-smoke.sh
+
+  brew-freshness:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update Homebrew metadata
+        run: brew update
+      - name: Prepare checker dependencies and declared taps
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v jq >/dev/null 2>&1 || brew install jq
+          taps=$(brew bundle list --tap --file=Brewfile)
+          while IFS= read -r tap; do
+            [ -z "$tap" ] || brew tap "$tap"
+          done <<< "$taps"
+      - name: Check Brewfile packages
         run: ./check-brewfile.sh

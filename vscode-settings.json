@@ -1,65 +1,27 @@
 {
-  // ********* Общие настройки *********
-  "editor.formatOnSave": true,
-  "editor.tabSize": 4,
-  "editor.rulers": [
-    80,
-    120
-  ],
-  "files.exclude": {
-    "**/__pycache__": true,
-    "**/.DS_Store": true,
-    "**/node_modules": true
+  // Merged into User settings; personal themes, accounts and workspace choices stay.
+  // Enable discovery: prefer the project's environment, otherwise use global Python.
+  "python.defaultInterpreterPath": "python",
+  "python.terminal.activateEnvironment": true,
+  "python.terminal.activateEnvInCurrentTerminal": false,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
   },
-  "files.associations": {
-    "*.js": "javascript",
-    "*.ts": "typescript"
+  // Bundled formatters do not need packages in global Python.
+  "black-formatter.importStrategy": "useBundled",
+  "isort.importStrategy": "useBundled",
+  "isort.args": ["--profile", "black"],
+  // clangd provides C++ completion; cpptools remains available for debugging.
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.profiles.osx": {
+    "zsh": { "path": "/bin/zsh", "args": ["-l"] }
   },
-  // ********* Python настройки *********
-  "python.pythonPath": "/opt/homebrew/bin/python3",
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true,
-  "python.formatting.provider": "black",
-  "python.editor.defaultFormatter": "ms-python.black-formatter",
-  "python.formatOnSave": true,
-  "python.linting.pylintArgs": [
-    "--disable=C0111" // Отключает предупреждение о отсутствии docstring
-  ],
-  "python.testing.pytestEnabled": true,
-  // ********* Go настройки *********
-  "go.useLanguageServer": true,
-  "go.formatTool": "gofmt",
-  "go.lintTool": "golint",
-  "go.vetOnSave": "package",
-  "go.testOnSave": true,
-  "go.coverageDecorator": {
-    "type": "gutter"
-  },
-  // ********* C++ настройки *********
-  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
-  "C_Cpp.default.intelliSenseMode": "gcc-x64",
-  "C_Cpp.default.compilerPath": "/usr/bin/g++",
-  // ********* JavaScript/TypeScript настройки *********
-  "javascript.validate.enable": true,
-  "javascript.format.enable": true,
-  "prettier.singleQuote": true,
-  "prettier.trailingComma": "all",
-  "eslint.options": {
-    "extensions": [
-      ".js",
-      ".jsx",
-      ".ts",
-      ".tsx"
-    ]
-  },
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  // ********* Расширения *********
-  "extensions.ignoreRecommendations": false,
-  "extensions.autoUpdate": true,
-  "git.autofetch": true,
+  "code-runner.executorMap": {
+    "python": "\"$pythonPath\" -u"
+  }
 }
