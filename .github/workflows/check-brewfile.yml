@@ -58,6 +58,12 @@ jobs:
         run: bash tests/install-smoke.sh
       - name: Brewfile checker regression test
         run: bash tests/check-brewfile-smoke.sh
+      - name: Install settings merge helper
+        run: npm ci --prefix tools/vscode --ignore-scripts --no-audit --no-fund
+      - name: VS Code settings merge tests
+        run: node --test tools/vscode/apply-settings.test.cjs
+      - name: VS Code installer smoke test
+        run: bash tests/vscode-install-smoke.sh
 
   brew-freshness:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'

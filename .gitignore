@@ -6,6 +6,7 @@
 backups/
 .venv/
 __pycache__/
+node_modules/
 .AppleDouble
 .LSOverride
 

@@ -1,0 +1,9 @@
+[
+  "python.pythonPath",
+  "python.linting.enabled",
+  "python.linting.pylintEnabled",
+  "python.linting.pylintArgs",
+  "python.formatting.provider",
+  "python.editor.defaultFormatter",
+  "python.formatOnSave"
+]

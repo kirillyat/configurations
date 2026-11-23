@@ -5,12 +5,14 @@ cd "$(dirname "$0")"
 repo_dir="$PWD"
 dotfiles_only=false
 with_vscode=false
+use_symlinks=false
 for arg in "$@"; do
   case "$arg" in
     --dotfiles-only) dotfiles_only=true ;;
     --with-vscode) with_vscode=true ;;
+    --symlink) use_symlinks=true ;;
     --help|-h)
-      printf '%s\n' 'Usage: ./install.sh [--dotfiles-only] [--with-vscode]' \
+      printf '%s\n' 'Usage: ./install.sh [--dotfiles-only] [--with-vscode] [--symlink]' \
         'Existing files and symlinks are backed up before replacement.'
       exit 0 ;;
     *) printf 'Unknown option: %s\n' "$arg" >&2; exit 2 ;;
@@ -33,11 +35,19 @@ backup_file() {
 }
 link_file() {
   local src="$repo_dir/$1" dst="$2"
-  if [[ -L "$dst" && "$(readlink "$dst")" = "$src" ]]; then return; fi
+  if "$use_symlinks"; then
+    if [[ -L "$dst" && "$(readlink "$dst")" = "$src" ]]; then return; fi
+  elif [[ -f "$dst" && ! -L "$dst" ]] && cmp -s "$src" "$dst"; then
+    return
+  fi
   mkdir -p "$(dirname "$dst")"
   if [[ -e "$dst" || -L "$dst" ]]; then backup_file "$dst"; fi
-  ln -s "$src" "$dst"
-  printf '  %s -> %s\n' "$dst" "$src"
+  if "$use_symlinks"; then
+    ln -s "$src" "$dst"
+  else
+    cp "$src" "$dst"
+  fi
+  printf '  %s <- %s\n' "$dst" "$src"
 }
 if ! "$dotfiles_only"; then
   if ! command -v brew >/dev/null 2>&1; then
@@ -61,7 +71,7 @@ if ! "$dotfiles_only"; then
       sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
   fi
 fi
-step 'Link dotfiles'
+step 'Install dotfiles'
 link_file .zprofile "$HOME/.zprofile"
 link_file .zshrc "$HOME/.zshrc"
 link_file .vimrc "$HOME/.vimrc"
@@ -72,17 +82,34 @@ if "$with_vscode"; then
   if ! command -v code >/dev/null 2>&1; then
     printf 'VS Code CLI is unavailable; skipping VS Code settings.\n' >&2
   else
+    for tool in node npm; do
+      if ! command -v "$tool" >/dev/null 2>&1; then
+        printf 'VS Code settings merge requires %s (included in Brewfile).\n' "$tool" >&2
+        exit 1
+      fi
+    done
+    if ! node -e 'try { process.exit(require(process.argv[1]).version === "3.3.1" ? 0 : 1); } catch { process.exit(1); }' \
+        "$repo_dir/tools/vscode/node_modules/jsonc-parser/package.json"; then
+      npm ci --prefix "$repo_dir/tools/vscode" --ignore-scripts --no-audit --no-fund
+    fi
+    dst="$HOME/Library/Application Support/Code/User/settings.json"
+    vscode_candidate=$(mktemp)
+    trap 'rm -f "$vscode_candidate"' EXIT
+    # Parse and validate the merge before backing up or changing existing settings.
+    node "$repo_dir/tools/vscode/apply-settings.cjs" "$dst" \
+      "$repo_dir/vscode-settings.json" "$repo_dir/vscode-settings.remove.json" > "$vscode_candidate"
+
     step 'Install missing VS Code extensions'
     installed=$(code --list-extensions)
     while IFS= read -r ext || [[ -n "$ext" ]]; do
       [[ -z "$ext" || "$ext" = \#* ]] && continue
       if ! grep -Fqix -- "$ext" <<<"$installed"; then code --install-extension "$ext"; fi
     done < vscode-extensions.txt
-    dst="$HOME/Library/Application Support/Code/User/settings.json"
-    if ! cmp -s vscode-settings.json "$dst"; then
+    step 'Merge VS Code settings'
+    if ! cmp -s "$vscode_candidate" "$dst"; then
       mkdir -p "$(dirname "$dst")"
       if [[ -e "$dst" || -L "$dst" ]]; then backup_file "$dst"; fi
-      cp vscode-settings.json "$dst"
+      cp "$vscode_candidate" "$dst"
     fi
   fi
 fi
