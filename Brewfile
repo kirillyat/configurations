@@ -22,16 +22,16 @@ brew "vim"
 brew "tmux"
 brew "zsh"
 brew "zsh-completions"
-brew "zsh-autocomplete"
+# Oh My Zsh owns compinit; zsh-autocomplete needs a different initialization.
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
 # --- Разработка ---
 brew "git"
 brew "gh"
-brew "python"
+brew "python@3.14" # development default; other versions may be tool dependencies
 brew "uv" # окружения на проект: uv venv; разовые скрипты: uv run --with pandas script.py
-brew "pipx"
+# Python CLI tools: uv tool install <tool>; libraries stay inside project .venv.
 brew "openjdk"
 brew "llvm"
 brew "gcc"
